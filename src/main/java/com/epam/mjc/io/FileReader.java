@@ -5,12 +5,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class FileReader {
 
     public Profile getDataFromFile(File file) {
-
 
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(file))) {
             String line;
@@ -18,7 +18,7 @@ public class FileReader {
             while ((line = reader.readLine()) != null) {
                 list.add(line);
             }
-            HashMap<String, String> map = parseToHashMap(list);
+            Map<String, String> map = parseToHashMap(list);
             return mapToProfile(map);
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -26,7 +26,7 @@ public class FileReader {
         }
     }
 
-    public static HashMap<String, String> parseToHashMap(List<String> list) {
+    public static Map<String, String> parseToHashMap(List<String> list) {
         HashMap<String, String> map = new HashMap<>();
         for (String str :
                 list) {
@@ -36,7 +36,7 @@ public class FileReader {
         return map;
     }
 
-    public static Profile mapToProfile(HashMap<String, String> map) {
+    public static Profile mapToProfile(Map<String, String> map) {
         String name = map.get("Name");
         Integer age = Integer.parseInt(map.get("Age"));
         String email = map.get("Email");
@@ -44,22 +44,4 @@ public class FileReader {
 
         return new Profile(name, age, email, phone);
     }
-
-//    public static void main(String[] args) {
-//
-//        File file = new File(TEST_FILE);
-//
-//        try (BufferedReader reader = new BufferedReader(new java.io.FileReader(file))) {
-//            String line;
-//            List<String> list = new ArrayList<>(List.of());
-//            while ((line = reader.readLine()) != null) {
-//                //System.out.print((char) c);
-//                list.add(line);
-//            }
-//            HashMap<String, String> map = parseToHashMap(list);
-//            Profile profile = mapToProfile(map);
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
 }
